@@ -47,7 +47,7 @@ const Home: NextPage = () => {
             <Center key={post.id} m={10}>
               <Box maxW={'800px'}
                   w={'1000px'}
-                  boxShadow={'xl'}
+                  boxShadow={'2xl'}
                   rounded={'md'}
                   p={6}
                   overflow={'hidden'}

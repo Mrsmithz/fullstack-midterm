@@ -17,7 +17,6 @@ const Categories : React.FC<{categories : Array<number>}> = ({ categories }) => 
                 })
             })
             setCategoriesList(arr)
-            console.log(categoiresList.join(','), 'join')
         }
     }, [data, categories])
     return (
