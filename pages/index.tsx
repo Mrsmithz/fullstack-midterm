@@ -13,15 +13,26 @@ import {
   Stack,
   Avatar,
   useColorModeValue,
+  Link
 } from '@chakra-ui/react'
 import { useQuery } from 'react-query'
 import Published from '../src/components/Publised'
 import Tags from '../src/components/Tags'
+import NextLink from 'next/link'
+import Categories from '../src/components/Categories'
 const Home: NextPage = () => {
   const { isLoading, isError, data, error } = useQuery<Array<IPost>>('posts', PostService.getAll)
   useEffect(() => {
     console.log(data)
   }, [data])
+  const removeHasMoreLink = (text : string) : string => {
+    const myRegEx = /<p>.+<\/p>/
+    const filtered = text.match(myRegEx)
+    if (filtered === null){
+      return 'can\'t find excerpt'
+    }
+    return filtered[0]
+  }
   return (
     <div className={styles.container}>
       <Head>
@@ -43,13 +54,21 @@ const Home: NextPage = () => {
                 >
                 <Stack>
                   <Heading textAlign={'center'} fontWeight={'400'}>
-                    {post.title.rendered}
+                    <NextLink href={`/post/${encodeURIComponent(post.slug)}`} passHref>
+                      <Link>{post.title.rendered}</Link>
+                    </NextLink>
                   </Heading>
                   <Box p={2}>
                     <Published authorId={post.author} date={post.date}/>
                   </Box>
+                  <Box my={3}>
+                    <Text dangerouslySetInnerHTML={{__html:removeHasMoreLink(post.excerpt.rendered)}} textAlign={'center'}></Text>
+                  </Box>
                   <Center>
                     <Tags tagList={post.tags}/>
+                  </Center>
+                  <Center>
+                    <Categories categories={post.categories}/>
                   </Center>
                 </Stack>
               </Box>

@@ -13,7 +13,10 @@ const Published : React.FC<{authorId:number, date:Date}> = ({authorId, date}) =>
     return (
         <Box textAlign={'center'}>
             <Text>
-                Published By <Link href={data?.link} isExternal>{data?.name}</Link> on {moment(date).format("MMM Do YYYY")}
+                Published By&nbsp;
+                <Link href={data?.link} isExternal>
+                    <Text as={'u'}>{data?.name}</Text>
+                </Link> on {moment(date).format("MMM Do YYYY")}
             </Text>
         </Box>
     )

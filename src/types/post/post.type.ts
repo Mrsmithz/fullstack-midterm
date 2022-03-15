@@ -5,6 +5,7 @@ export default interface IPost {
     type: string,
     tags: Array<number>,
     title: Title,
+    slug:string,
     content: Content,
     link: string,
     date: Date,
